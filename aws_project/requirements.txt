@@ -1,0 +1,6 @@
+boto3
+pandas
+requests
+dotenv
+apache-airflow-providers-amazon
+databricks-sdk

@@ -1,76 +1,110 @@
-AWS Data Engineering Project
+# AWS Data Engineering Project
 
-<img width="2037" height="772" alt="image" src="https://github.com/user-attachments/assets/2ee4a7e9-47fd-49dd-8669-3e49a99b31d9" />
+<img width="2037" height="772" alt="AWS Data Engineering Architecture" src="https://github.com/user-attachments/assets/2ee4a7e9-47fd-49dd-8669-3e49a99b31d9" />
 
+An end-to-end **AWS data engineering pipeline** orchestrated with **Apache Airflow**, following a **Medallion Architecture (Bronze → Silver → Gold)** to transform raw data into analytics-ready datasets.
 
-An end-to-end AWS data engineering pipeline orchestrated with Apache Airflow, following a Medallion Architecture (Bronze → Silver → Gold) to transform raw data into analytics-ready datasets.
+## 🔄 Data Flow
 
-🔄 Data Flow
+```text
 Source Data
-    ↓
-Bronze Layer — Raw Data / S3
-    ↓
-Silver Layer — Clean & Transform / Spark
-    ↓
+     ↓
+Bronze Layer — Raw Data / Amazon S3
+     ↓
+Silver Layer — Clean & Transform / Apache Spark
+     ↓
 Gold Layer — Analytics-Ready Data
-    ↓
+     ↓
 Athena / Data Warehouse
-    ↓
+     ↓
 Power BI & Analytics
-📁 Project Structure
+
+## 📁 Project Structure
+
 aws_project/
+│
 ├── dags/
-│   └── aws_project.py          # Airflow DAG & orchestration
+│   └── aws_project.py          # Airflow DAG and orchestration
+│
 ├── utils/
 │   ├── bronze_layer.py         # Raw data ingestion
-│   ├── silver_layer.py         # Data cleaning & transformation
+│   ├── silver_layer.py         # Data cleaning and transformation
 │   └── gold_layer.py           # Business-ready datasets
+│
 ├── config/
-│   └── airflow.cfg
-├── Dockerfile
-├── docker-compose.yaml
-└── requirements.txt
-🛠️ Tech Stack
+│   └── airflow.cfg             # Airflow configuration
+│
+├── Dockerfile                  # Airflow Docker image
+├── docker-compose.yaml         # Local Airflow environment
+└── requirements.txt            # Python dependencies
 
-AWS S3 · Apache Airflow · Python · Apache Spark · AWS Glue · Athena · Redshift · Snowflake · Docker · Power BI
 
-✨ Key Features
-Medallion-based Bronze, Silver, and Gold data layers
-Airflow DAGs for workflow orchestration and scheduling
-Modular Python transformation logic
-Cloud-based data lake and warehouse integration
-Dockerized Airflow environment
-Analytics-ready datasets for BI and reporting
+##🛠️ Tech Stack
 
-🚀 Run Locally
+-AWS S3 – Data lake / raw data storage
+-Apache Airflow – Workflow orchestration
+-Python – ETL and transformation logic
+-Apache Spark – Data processing
+-AWS Glue – Data catalog and ETL
+-Amazon Athena – SQL-based analytics
+-Amazon Redshift / Snowflake – Data warehousing
+-Power BI – Reporting and visualization
+-Docker – Containerized development environment
+
+##✨ Key Features
+-Medallion architecture with Bronze, Silver, and Gold layers
+-Airflow DAGs for workflow orchestration and scheduling
+-Modular Python-based ETL processing
+-Data cleansing and transformation using Spark
+-Integration with AWS data lake and analytics services
+-Dockerized Airflow environment for local development
+-Analytics-ready datasets for BI and reporting
+
+##🚀 Run Locally
+###1. Start the Airflow environment
 docker compose up -d
 
-Open Airflow at:
+###2. Open Airflow
+Navigate to:http://localhost:8080
 
-http://localhost:8080
+###3. Run the Pipeline
+Find the aws_project DAG in the Airflow UI and trigger it manually to execute the Bronze → Silver → Gold pipeline.
 
-Trigger the aws_project DAG to execute the pipeline.
-aws_project/
-├── dags/
-│   └── aws_project.py
-├── utils/
-│   ├── bronze_layer.py
-│   ├── silver_layer.py
-│   └── gold_layer.py
-├── config/
-│   └── airflow.cfg
-├── Dockerfile
-├── docker-compose.yaml
-└── requirements.txt
-Tech Stack
+##📊 Pipeline Architecture
 
-AWS S3 · Apache Airflow · Python · Spark · AWS Glue · Athena · Redshift · Snowflake · Docker · Power BI
+The pipeline separates orchestration from data processing logic:
 
-Run Locally
-docker compose up -d
+                    Apache Airflow
+                          │
+                          ▼
+                  ┌───────────────┐
+                  │ Bronze Layer  │
+                  │   Raw Data    │
+                  │     S3        │
+                  └───────┬───────┘
+                          │
+                          ▼
+                  ┌───────────────┐
+                  │ Silver Layer  │
+                  │ Clean &       │
+                  │ Transform     │
+                  │    Spark      │
+                  └───────┬───────┘
+                          │
+                          ▼
+                  ┌───────────────┐
+                  │  Gold Layer   │
+                  │ Analytics     │
+                  │    Ready      │
+                  └───────┬───────┘
+                          │
+                 ┌────────┴────────┐
+                 ▼                 ▼
+              Athena          Data Warehouse
+                 │                 │
+                 └────────┬────────┘
+                          ▼
+                      Power BI
+##🎯 Project Objective
 
-Open Airflow:
-
-http://localhost:8080
-
-Trigger the aws_project DAG to run the pipeline.
+The goal of this project is to demonstrate an end-to-end cloud data engineering workflow using AWS and Apache Airflow, with a scalable and modular architecture for transforming raw data into reliable datasets for analytics and reporting.
